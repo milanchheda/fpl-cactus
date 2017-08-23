@@ -1,0 +1,70 @@
+table.table tr th {
+    text-align: center;
+}
+table.stats-table tr td, table.stats-table tr th {
+    text-align: center;
+}
+table.table tr td.set-bet, table.table tr td.draw-bet {
+    cursor: pointer;
+}
+table.table tr td.set-bet:hover, table.table tr td.draw-bet:hover {
+    background-color: #DDD;
+}
+table.table tr td.team-selected {
+    background-color:#5fba7d;
+    color: #FFF;
+    font-weight: bold;
+}
+table.table tr td.team-selected:hover {
+    background-color:#5FBD4F;
+}
+table.table tr td.draw-selected {
+    background-color: #4099FF;
+    color: #FFF;
+    font-weight: bold;
+}
+table.table tr td.draw-selected:hover {
+    background-color: #4099B4;
+}
+table.table tr td.losing-selection {
+    background-color: red;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+table.table tr td.winning-selection {
+    background-color: green;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+.checkmark {
+    display:none;
+    width: 22px;
+    height:22px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);
+}
+
+.checkmark_stem {
+    position: absolute;
+    width: 3px;
+    height: 15px;
+    background-color: #FFF;
+    left: 11px;
+    top: 4px;
+}
+
+.checkmark_kick {
+    position: absolute;
+    width: 9px;
+    height: 3px;
+    background-color: #FFF;
+    left: 5px;
+    top: 18px;
+}
+
+.success-popup  {
+    transition: .3s ease all;
+}

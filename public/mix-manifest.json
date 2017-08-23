@@ -1,0 +1,10 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/js/vendor.js": "/js/vendor.js",
+    "/js/manifest.js": "/js/manifest.js",
+    "/css/custom.css": "/css/custom.css",
+    "/css/custom.min.css": "/css/custom.min.css",
+    "/js/custom.js": "/js/custom.js",
+    "/js/custom.min.js": "/js/custom.min.js"
+}
