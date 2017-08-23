@@ -107,9 +107,9 @@ class BetsController extends Controller
                 $betsObj->team_id = $value;
                 $betsObj->save();
             }
-            return response()->json(['message' => 'Saved Successfully.'])->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
+            return response()->json(['message' => 'Saved Successfully.'])->setStatusCode(200);
         } else {
-            return response()->json(['message' => 'Sorry, you missed the deadline.'])->setStatusCode(Response::HTTP_FORBIDDEN, Response::$statusTexts[Response::HTTP_FORBIDDEN]);
+            return response()->json(['message' => 'Sorry, you missed the deadline.'])->setStatusCode(403);
         }
     }
 

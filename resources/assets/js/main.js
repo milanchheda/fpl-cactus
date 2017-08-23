@@ -5,6 +5,13 @@ function getUserSelectedBets(gameweekId) {
     .then(function (response) {
         if(response.data) {
             $(response.data).each(function(k, v){
+                var gameweekDeadline = $("#gameweek-deadline").text();
+                gameweekDeadline = gameweekDeadline.split(' ');
+                var arrdt = gameweekDeadline[0].split("-");
+                var timeS = gameweekDeadline[1].split(":");
+                var userdt = new Date(arrdt[2], arrdt[1] - 1, arrdt[0],timeS[0],timeS[1]);
+
+                var currdt = new Date();
                 var yourBet = 'DRAW';
                 var successFail = 'losing-selection';
                 var winningTeamId = 0;
@@ -17,7 +24,11 @@ function getUserSelectedBets(gameweekId) {
                     } else if(v.team_id == winningTeamId){
                         successFail = 'winning-selection';
                     }
-                $("table.table tr#team-" + v.fixture_id).find('.user-bet').text(yourBet).addClass(successFail);
+                    if (userdt > currdt) {
+                        successFail = 'nothing';
+                    }
+
+                    $("table.table tr#team-" + v.fixture_id).find('.user-bet').text(yourBet).addClass(successFail);
             });
         }
     });
