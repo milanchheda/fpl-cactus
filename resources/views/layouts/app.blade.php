@@ -38,21 +38,23 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li {{{ (Request::is('home') ? 'class=active' : '') }}}>
-                            <a href="{{ url('home') }}">
-                                Home
-                            </a>
-                        </li>
-                        <li {{{ (Request::is('give-bets') ? 'class=active' : '') }}}>
-                            <a href="{{ url('give-bets') }}">
-                                Give Bets
-                            </a>
-                        </li>
-                        <li {{{ (Request::is('stats') ? 'class=active' : '') }}}>
-                            <a href="{{ url('stats') }}">
-                                Stats
-                            </a>
-                        </li>
+                        @if (Auth::check())
+                            <li {{{ (Request::is('home') ? 'class=active' : '') }}}>
+                                <a href="{{ url('home') }}">
+                                    Home
+                                </a>
+                            </li>
+                            <li {{{ (Request::is('give-bets') ? 'class=active' : '') }}}>
+                                <a href="{{ url('give-bets') }}">
+                                    Give Bets
+                                </a>
+                            </li>
+                            <li {{{ (Request::is('stats') ? 'class=active' : '') }}}>
+                                <a href="{{ url('stats') }}">
+                                    Stats
+                                </a>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
