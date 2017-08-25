@@ -7757,6 +7757,12 @@ table.table tr td.losing-selection {
     text-align: center;
     vertical-align: middle;
 }
+table.table tr td.rightScoreClass {
+    text-align: left;
+}
+table.table tr td.leftScoreClass {
+    text-align: right;
+}
 table.table tr td.winning-selection {
     background-color: #98F398;
     font-weight: bold;

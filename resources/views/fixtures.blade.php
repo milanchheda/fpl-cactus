@@ -18,8 +18,8 @@
 							</span>
 						</span>
 					</td>
-						<td class="col-md-1 text-center scoreClass">{{ $fixture->team_home_score }}</td>
-						<td class="col-md-1 text-center scoreClass">{{ $fixture->team_away_score }}</td>
+						<td class="col-md-1 text-center scoreClass leftScoreClass">{{ $fixture->team_home_score }}</td>
+						<td class="col-md-1 text-center scoreClass rightScoreClass">{{ $fixture->team_away_score }}</td>
 					<td id="{{ $fixture->away_team_id }}" class="col-md-5 text-left">
 						<span class="club {{ $fixture->away_team }}">
 							<span class="teamName righTeamName">
