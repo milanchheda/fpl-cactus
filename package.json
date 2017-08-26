@@ -20,6 +20,9 @@
   },
   "dependencies": {
     "bxslider": "^4.2.11",
-    "nprogress": "^0.2.0"
+    "laravel-echo": "^1.3.2",
+    "moment": "^2.18.1",
+    "nprogress": "^0.2.0",
+    "pusher-js": "^4.1.0"
   }
 }

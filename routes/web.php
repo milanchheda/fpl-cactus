@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\MessagePosted;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +17,10 @@ Route::get('/', function () {
     return view('coming_soon');
 });
 
+Route::get('/chat', function () {
+    return view('chat');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -26,3 +32,16 @@ Route::post('/get-stats', ['middleware' => 'auth', 'uses' => 'BetsController@get
 Route::post('/gameweek/next', ['middleware' => 'auth', 'uses' => 'GameweekController@next']);
 Route::post('/bets/store', ['middleware' => 'auth', 'uses' => 'BetsController@saveBets']);
 
+Route::get('/messages', function () {
+    return App\Message::with('user')->get();
+})->middleware('auth');
+Route::post('/messages', function () {
+    // Store the new message
+    $user = Auth::user();
+    $message = $user->messages()->create([
+        'message' => request()->get('message')
+    ]);
+    // Announce that a new message has been posted
+    broadcast(new MessagePosted($message, $user))->toOthers();
+    return ['status' => 'OK'];
+})->middleware('auth');
