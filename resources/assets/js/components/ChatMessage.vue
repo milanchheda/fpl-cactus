@@ -3,7 +3,6 @@
   	<small class="username">{{ message.user.name | getInitials }}</small>
   	<span class="pull-right" >{{ message.updated_at | humanReadableTime }}</span>
     <p>{{ message.message }}</p>
-
   </div>
 </template>
 

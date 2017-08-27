@@ -61,6 +61,9 @@ const app = new Vue({
                     updated_on: e.message.updated_at
                 });
             });
+    },
+    updated() {
+		$('.chat-log').scrollTop($('.chat-log')[0].scrollHeight);
     }
 });
 

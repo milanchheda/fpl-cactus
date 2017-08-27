@@ -37766,6 +37766,9 @@ var app = new Vue({
                 updated_on: e.message.updated_at
             });
         });
+    },
+    updated: function updated() {
+        $('.chat-log').scrollTop($('.chat-log')[0].scrollHeight);
     }
 });
 
@@ -63786,7 +63789,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['message']
@@ -63892,7 +63894,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "\n.chat-log .chat-message:nth-child(even) {\n    background-color: #ccc;\n}\n.empty {\n    padding: 1rem;\n    text-align: center;\n}\n", ""]);
+exports.push([module.i, "\n.chat-log {\n\tmax-height: 500px;\n\toverflow-y: scroll;\n}\n.chat-log .chat-message:nth-child(even) {\n    background-color: #ccc;\n}\n.empty {\n    padding: 1rem;\n    text-align: center;\n}\n", ""]);
 
 // exports
 
