@@ -14,15 +14,13 @@ function getUserSelectedBets(gameweekId) {
                 var currdt = new Date();
                 var yourBet = 'DRAW';
                 var successFail = 'losing-selection';
-                var winningTeamId = 0;
+                var winningTeamId = $("table.table tr#team-" + v.fixture_id).data('winning-team-id');
                     if(v.team_id != 0){
-                        winningTeamId = $("table.table tr#team-" + v.fixture_id).data('winning-team-id')
                         yourBet = v.teamName;
                         if(winningTeamId == v.team_id) {
                             successFail = 'winning-selection';
                         }
                     } else if(v.team_id == winningTeamId){
-                        winningTeamId = $("table.table tr#team-" + v.fixture_id).data('winning-team-id')
                         successFail = 'winning-selection';
                     }
                     if (userdt > currdt) {
