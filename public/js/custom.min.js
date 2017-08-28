@@ -64149,6 +64149,7 @@ function getUserSelectedBets(gameweekId) {
                             successFail = 'winning-selection';
                         }
                     } else if(v.team_id == winningTeamId){
+                        winningTeamId = $("table.table tr#team-" + v.fixture_id).data('winning-team-id')
                         successFail = 'winning-selection';
                     }
                     if (userdt > currdt) {
