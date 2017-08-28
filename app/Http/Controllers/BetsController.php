@@ -140,7 +140,8 @@ class BetsController extends Controller
                     join fixtures f on f.id = ub.fixture_id
                     where ub.team_id = f.winning_team_id
                     $whereCondition
-                    group by user_id");
+                    group by user_id
+                    order by count(*) desc");
         return Response::json(View::make('stats', compact('getStats'))->render());
     }
 }
