@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Bets;
+use App\User;
 use App\Fixtures;
 use App\Traits\nextGameweek;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Response;
 
 class BetsController extends Controller
 {
@@ -130,18 +131,69 @@ class BetsController extends Controller
     public function getStats(Request $request) {
         $gameweekID = $request->input('id');
         $whereCondition = '';
+        $query = Fixtures::whereNotNull('team_home_score')->whereNotNull('team_away_score')->whereNotIn('gameweek', [1,2]);
 
         if(is_numeric($gameweekID) && $gameweekID > 0) {
-            $whereCondition = ' AND f.gameweek = ' . $gameweekID;
+            $query->where('gameweek', $gameweekID);
+            $newQuery = DB::select("SELECT concat(t1.team_short_name, ' vs ', t2.team_short_name) fixture, t3.team_short_name winningTeam, t3.id as winningTeamId, ub.team_id userBetTeamId, u.name,
+                concat(t1.fpl_team_id, '-', t1.team_short_name) teamOneName,
+                concat(t2.fpl_team_id, '-', t2.team_short_name) teamTwoName
+                from users u
+                join user_bets ub on u.id = ub.user_id
+                join fixtures f on f.id = ub.fixture_id
+                left join teams t1 on t1.fpl_team_id = f.team_home_id
+                left join teams t2 on t2.fpl_team_id = f.team_away_id
+                left join teams t3 on t3.fpl_team_id = f.winning_team_id
+                where gameweek_id = " . $gameweekID);
         }
 
-        $getStats = DB::select("SELECT count(*)*2 as winningAmount, u.name from users u
-                    join user_bets ub on u.id = ub.user_id
-                    join fixtures f on f.id = ub.fixture_id
-                    where ub.team_id = f.winning_team_id
-                    $whereCondition
-                    group by user_id
-                    order by count(*) desc");
-        return Response::json(View::make('stats', compact('getStats'))->render());
+        $getFixtures = $query->get()->toArray();
+
+        $getBets = Bets::select(DB::raw('user_id, team_id, fixture_id'))->get()->toArray();
+        foreach ($getBets as $key => $value) {
+            $betsArray[$value['user_id']][$value['fixture_id']] = $value['team_id'];
+        }
+
+        $fixtureCount = [];
+        $userArray = [];
+        foreach ($getFixtures as $key => $value) {
+            $fixtureCount[$value['id']] = 0;
+            // $fixtureCount[$value['id']]['lost'] = 0;
+            for ($i = 1; $i <= count($betsArray)+1; $i++) {
+                if(!isset($userArray[$i]['amount']))
+                    $userArray[$i]['amount'] = 0;
+                if(isset($betsArray[$i])) {
+                    if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
+                        $fixtureCount[$value['id']]++;
+                    }
+                }
+            }
+
+            foreach ($fixtureCount as $fk => $fv) {
+                $fixtureCount[$fk] = 0;
+                if($fv > 0)
+                    $fixtureCount[$fk] = number_format(20/$fv, 2);
+            }
+
+            for ($i = 1; $i <= count($betsArray)+1; $i++) {
+                if(isset($betsArray[$i])) {
+                    if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
+                        $userArray[$i]['amount'] += $fixtureCount[$value['id']];
+                    }
+                }
+            }
+        }
+
+        foreach ($userArray as $key => $value) {
+            $getUserObj = User::where('id', $key)->get()->toArray();
+            $userArray[$getUserObj[0]['name']] = $value;
+            unset($userArray[$key]);
+        }
+
+        uasort($userArray, function($a, $b){
+            return $a['amount'] < $b['amount'];
+        });
+
+        return Response::json(View::make('stats', compact('userArray', 'newQuery'))->render());
     }
 }
