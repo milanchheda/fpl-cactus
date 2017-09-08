@@ -139,4 +139,5 @@
             </div> <!-- end card-container -->
         </div>
 	@endforeach
+    <div class="pagination"> {{ $allPlayers->links() }} </div>
 @endsection

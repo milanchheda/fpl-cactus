@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\FplPlayers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class FplPlayersController extends Controller
 {
@@ -14,10 +15,11 @@ class FplPlayersController extends Controller
      */
     public function index()
     {
-        $allPlayers = FplPlayers::with('teams')->orderBy('total_points', 'desc')->get();
-        return view('players', [
-                'allPlayers' => $allPlayers
-            ]);
+        $allPlayers = FplPlayers::with('teams')->orderBy('total_points', 'desc')->simplePaginate(20);
+        return View::make('players', compact('allPlayers'));
+        // return view('players', [
+        //         'allPlayers' => $allPlayers
+        //     ]);
     }
 
     /**

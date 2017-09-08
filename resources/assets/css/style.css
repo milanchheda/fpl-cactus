@@ -1162,3 +1162,7 @@ span.righTeamName {
         visibility: visible;
     }
 }
+.pagination {
+    display: table;
+    margin: 0 auto;
+}
