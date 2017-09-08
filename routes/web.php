@@ -13,9 +13,9 @@ use App\Events\MessagePosted;
 |
 */
 
-Route::get('/', function () {
-    return view('coming_soon');
-});
+// Route::get('/', function () {
+//     return view('coming_soon');
+// });
 
 Route::get('/chat', function () {
     return view('chat');
@@ -23,7 +23,8 @@ Route::get('/chat', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'FplPlayersController@index');
 Route::get('/give-bets', ['middleware' => 'auth', 'uses' => 'BetsController@getBets']);
 Route::get('/stats', ['middleware' => 'auth', 'uses' => 'HomeController@index']);
 Route::post('/fixtures', ['middleware' => 'auth', 'uses' => 'FixturesController@show']);
@@ -31,6 +32,8 @@ Route::post('/get-user-bets', ['middleware' => 'auth', 'uses' => 'BetsController
 Route::post('/get-stats', ['middleware' => 'auth', 'uses' => 'BetsController@getStats']);
 Route::post('/gameweek/next', ['middleware' => 'auth', 'uses' => 'GameweekController@next']);
 Route::post('/bets/store', ['middleware' => 'auth', 'uses' => 'BetsController@saveBets']);
+
+
 
 Route::get('/messages', function () {
     return App\Message::with('user')->get();

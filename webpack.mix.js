@@ -28,6 +28,7 @@ mix.combine([
 	'public/js/manifest.js',
 	'public/js/vendor.js',
     'public/js/app.js',
+    'node_modules/flip/dist/jquery.flip.min.js',
     'resources/assets/js/main.js',
 ], 'public/js/custom.js')
     .minify('public/js/custom.js');

@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\getTeams::class,
         Commands\getGameweeks::class,
         Commands\getFixtures::class,
+        Commands\getPlayers::class,
     ];
 
     /**
