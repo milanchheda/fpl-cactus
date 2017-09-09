@@ -40,11 +40,12 @@ const app = new Vue({
         }
     },
     created() {
-        axios.get('/messages').then(response => {
-            this.messages = response.data;
-        });
+        if(window.location.pathname == '/chat') {
+            axios.get('/messages').then(response => {
+                this.messages = response.data;
+            });
 
-        Echo.join('chatroom')
+            Echo.join('chatroom')
             .here((users) => {
                 this.usersInRoom = users;
             })
@@ -61,6 +62,7 @@ const app = new Vue({
                     updated_on: e.message.updated_at
                 });
             });
+        }
     },
     updated() {
 		$('.chat-log').scrollTop($('.chat-log')[0].scrollHeight);

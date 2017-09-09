@@ -25,14 +25,18 @@
 	</div>
 @endif
 @if(isset($newQuery) && $count > 0)
-<?php $fixtureArray = []; ?>
+<?php $fixtureArray = [];
+	$newArray = array_map(function($v){
+		return $v->name;
+	}, $newQuery);
+?>
 <div class="table-responsive">
 	<table class="table stats-table">
 		<thead>
 			<tr>
 			<th></th>
 			<th>Result</th>
-			@for($i = 0; $i < $count; $i++)
+			@for($i = 0; $i < count(array_unique($newArray)); $i++)
 				<th>{{ $newQuery[$i]->name }}</th>
 			@endfor
 			</tr>

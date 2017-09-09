@@ -37747,25 +37747,27 @@ var app = new Vue({
     created: function created() {
         var _this = this;
 
-        axios.get('/messages').then(function (response) {
-            _this.messages = response.data;
-        });
+        if (window.location.pathname == '/chat') {
+            axios.get('/messages').then(function (response) {
+                _this.messages = response.data;
+            });
 
-        Echo.join('chatroom').here(function (users) {
-            _this.usersInRoom = users;
-        }).joining(function (user) {
-            _this.usersInRoom.push(user);
-        }).leaving(function (user) {
-            _this.usersInRoom = _this.usersInRoom.filter(function (u) {
-                return u != user;
+            Echo.join('chatroom').here(function (users) {
+                _this.usersInRoom = users;
+            }).joining(function (user) {
+                _this.usersInRoom.push(user);
+            }).leaving(function (user) {
+                _this.usersInRoom = _this.usersInRoom.filter(function (u) {
+                    return u != user;
+                });
+            }).listen('MessagePosted', function (e) {
+                _this.messages.push({
+                    message: e.message.message,
+                    user: e.user,
+                    updated_on: e.message.updated_at
+                });
             });
-        }).listen('MessagePosted', function (e) {
-            _this.messages.push({
-                message: e.message.message,
-                user: e.user,
-                updated_on: e.message.updated_at
-            });
-        });
+        }
     },
     updated: function updated() {
         $('.chat-log').scrollTop($('.chat-log')[0].scrollHeight);
@@ -64226,6 +64228,18 @@ $(document).on('click', 'td', function(){
             $(this).addClass('team-selected').find('.checkmark').show();
         }
     }
+});
+
+$(document).on('click', '.artisan-button', function(){
+    axios.post('/run-artisan', {
+        id: $(this).attr('id')
+    })
+    .then(function (response) {
+
+    })
+    .catch(function(error){
+
+    });
 });
 
 $(document).on('click', '#save-my-bets', function(){

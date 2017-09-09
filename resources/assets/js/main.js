@@ -95,6 +95,18 @@ $(document).on('click', 'td', function(){
     }
 });
 
+$(document).on('click', '.artisan-button', function(){
+    axios.post('/run-artisan', {
+        id: $(this).attr('id')
+    })
+    .then(function (response) {
+
+    })
+    .catch(function(error){
+
+    });
+});
+
 $(document).on('click', '#save-my-bets', function(){
     var betsSelected = {};
     var totalGames = $('table.table tr').length;

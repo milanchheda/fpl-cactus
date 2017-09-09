@@ -33,7 +33,8 @@ Route::post('/get-stats', ['middleware' => 'auth', 'uses' => 'BetsController@get
 Route::post('/gameweek/next', ['middleware' => 'auth', 'uses' => 'GameweekController@next']);
 Route::post('/bets/store', ['middleware' => 'auth', 'uses' => 'BetsController@saveBets']);
 
-
+Route::get('/run-artisan', ['middleware' => 'auth', 'uses' => 'HomeController@getRunArtisan']);
+Route::post('/run-artisan', ['middleware' => 'auth', 'uses' => 'HomeController@runArtisan']);
 
 Route::get('/messages', function () {
     return App\Message::with('user')->get();
