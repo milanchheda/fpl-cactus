@@ -131,7 +131,7 @@ class BetsController extends Controller
     public function getStats(Request $request) {
         $gameweekID = $request->input('id');
         $whereCondition = '';
-        $query = Fixtures::whereNotNull('team_home_score')->whereNotNull('team_away_score')->whereNotIn('gameweek', [1,2]);
+        $query = Fixtures::whereNotNull('team_home_score')->whereNotNull('team_away_score')->whereNotIn('gameweek', [1,2,3]);
 
         if(is_numeric($gameweekID) && $gameweekID > 0) {
             $query->where('gameweek', $gameweekID);
@@ -159,15 +159,25 @@ class BetsController extends Controller
         foreach ($getFixtures as $key => $value) {
             $fixtureCount[$value['id']] = 0;
             // $fixtureCount[$value['id']]['lost'] = 0;
-            for ($i = 1; $i <= count($betsArray)+1; $i++) {
-                if(!isset($userArray[$i]['amount']))
-                    $userArray[$i]['amount'] = 0;
-                if(isset($betsArray[$i]) && isset($betsArray[$i][$value['id']])) {
-                    if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
+            // $someCount = 0;
+            foreach ($betsArray as $bk => $bv) {
+                if(!isset($userArray[$bk]['amount']))
+                    $userArray[$bk]['amount'] = 0;
+                if(isset($betsArray[$bk]) && isset($betsArray[$bk][$value['id']])) {
+                    if($value['winning_team_id'] == $betsArray[$bk][$value['id']]) {
                         $fixtureCount[$value['id']]++;
                     }
                 }
             }
+            // for ($i = 1; $i <= count($betsArray)+1; $i++) {
+            //     if(!isset($userArray[$i]['amount']))
+            //         $userArray[$i]['amount'] = 0;
+            //     if(isset($betsArray[$i]) && isset($betsArray[$i][$value['id']])) {
+            //         if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
+            //             $fixtureCount[$value['id']]++;
+            //         }
+            //     }
+            // }
 
             foreach ($fixtureCount as $fk => $fv) {
                 $fixtureCount[$fk] = 0;
@@ -175,13 +185,20 @@ class BetsController extends Controller
                     $fixtureCount[$fk] = number_format(20/$fv, 2);
             }
 
-            for ($i = 1; $i <= count($betsArray)+1; $i++) {
-                if(isset($betsArray[$i])) {
-                    if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
-                        $userArray[$i]['amount'] += $fixtureCount[$value['id']];
+            foreach ($betsArray as $nbk => $nbv) {
+                if(isset($betsArray[$nbk])) {
+                    if($value['winning_team_id'] == $betsArray[$nbk][$value['id']]) {
+                        $userArray[$nbk]['amount'] += $fixtureCount[$value['id']];
                     }
                 }
             }
+            // for ($i = 1; $i <= count($betsArray)+1; $i++) {
+            //     if(isset($betsArray[$i])) {
+            //         if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
+            //             $userArray[$i]['amount'] += $fixtureCount[$value['id']];
+            //         }
+            //     }
+            // }
         }
 
         foreach ($userArray as $key => $value) {
