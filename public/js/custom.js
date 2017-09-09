@@ -64235,7 +64235,7 @@ $(document).on('click', '.artisan-button', function(){
         id: $(this).attr('id')
     })
     .then(function (response) {
-
+        $("#errorSuccessMessageContainer").addClass('alert-success').html(response.data.message);
     })
     .catch(function(error){
 

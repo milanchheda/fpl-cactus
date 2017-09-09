@@ -37,22 +37,24 @@ class HomeController extends Controller
     public function runArtisan(Request $request) {
         switch ($request->input('id')) {
             case 'getFixtures':
-                $return = Artisan::call('get:fixtures');
+                Artisan::call('get:fixtures');
+                $return = Artisan::output();
                 break;
             case 'getTeams':
-                $return = Artisan::call('get:teams');
+                Artisan::call('get:teams');
+                $return = Artisan::output();
                 break;
             case 'getGameweeks':
-                $return = Artisan::call('get:gameweeks');
+                Artisan::call('get:gameweeks');
+                $return = Artisan::output();
                 break;
 
             default:
-                # code...
+                $return = 0;
                 break;
         }
-        echo $return;
-        die();
+
         return response()->json(['message' => 'Artisan command executed Successfully.'])->setStatusCode(200);
-        return response()->json(['message' => 'Oops, artisan command encourtered some error.'])->setStatusCode(403);
+        // return response()->json(['message' => 'Oops, artisan command encourtered some error.'])->setStatusCode(403);
     }
 }
