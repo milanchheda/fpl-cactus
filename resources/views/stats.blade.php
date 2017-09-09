@@ -1,3 +1,5 @@
+<?php $count = 0; ?>
+@if(count($userArray) > 0)
 <div class="table-responsive">
 	<table class="table stats-table">
 		<thead>
@@ -8,6 +10,7 @@
 		</thead>
 		<tbody>
 			@foreach($userArray as $key => $value)
+				<?php $count++; ?>
 				<tr>
 					<td>{{ $key }}</td>
 					<td>{{ $value['amount'] }}</td>
@@ -16,15 +19,20 @@
 		</tbody>
 	</table>
 </div>
-@if(isset($newQuery))
-<?php $count = 0; $fixtureArray = [];?>
+@else
+	<div class='alert alert-info margin-top-10'>
+		No bets found OR Matches in this gameweek are yet to finish. Come again later.
+	</div>
+@endif
+@if(isset($newQuery) && $count > 0)
+<?php $fixtureArray = []; ?>
 <div class="table-responsive">
 	<table class="table stats-table">
 		<thead>
 			<tr>
 			<th></th>
 			<th>Result</th>
-			@for($i = 0; $i < 8; $i++)
+			@for($i = 0; $i < $count; $i++)
 				<th>{{ $newQuery[$i]->name }}</th>
 			@endfor
 			</tr>

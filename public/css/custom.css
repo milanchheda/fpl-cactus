@@ -8889,3 +8889,6 @@ span.righTeamName {
     display: table;
     margin: 0 auto;
 }
+.margin-top-10 {
+    margin-top: 10px;
+}
