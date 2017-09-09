@@ -162,7 +162,7 @@ class BetsController extends Controller
             for ($i = 1; $i <= count($betsArray)+1; $i++) {
                 if(!isset($userArray[$i]['amount']))
                     $userArray[$i]['amount'] = 0;
-                if(isset($betsArray[$i])) {
+                if(isset($betsArray[$i]) && isset($betsArray[$i][$value['id']])) {
                     if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
                         $fixtureCount[$value['id']]++;
                     }
