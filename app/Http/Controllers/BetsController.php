@@ -182,7 +182,7 @@ class BetsController extends Controller
             foreach ($fixtureCount as $fk => $fv) {
                 $fixtureCount[$fk] = 0;
                 if($fv > 0)
-                    $fixtureCount[$fk] = number_format(20/$fv, 2);
+                    $fixtureCount[$fk] = number_format(22/$fv, 2);
             }
 
             foreach ($betsArray as $nbk => $nbv) {
