@@ -95,6 +95,39 @@ $(document).on('click', 'td', function(){
     }
 });
 
+
+$(document).on('click', '#update-with-no-bets', function(){
+    var current = $(this);
+    current.attr('disabled', 'disabled');
+    axios.post('/check-bets', {
+        user_id: $("select.user-list option:selected").val(),
+        gwid: $("select.nobets-gameweek-list option:selected").val(),
+        update: 1
+    })
+    .then(function (response) {
+        current.remove();
+        $("#errorSuccessMessageContainer").addClass('alert-success').html(response.data.message);
+    })
+    .catch(function(error){
+        $("#errorSuccessMessageContainer").addClass('alert-danger').html(error.data.message);
+    });
+});
+
+$(document).on('click', '#check-with-no-bets', function(){
+    var current = $(this);
+    axios.post('/check-bets', {
+        user_id: $("select.user-list option:selected").val(),
+        gwid: $("select.nobets-gameweek-list option:selected").val()
+    })
+    .then(function (response) {
+        $("#errorSuccessMessageContainer").addClass('alert-danger').html(error.data.message);
+    })
+    .catch(function(error){
+        current.attr('id', 'update-with-no-bets').text('Update');
+        $("#errorSuccessMessageContainer").addClass('alert-success').html('No bets found. Click on update to mark as \'no bets\' for this user.');
+    });
+});
+
 $(document).on('click', '.artisan-button', function(){
     axios.post('/run-artisan', {
         id: $(this).attr('id')
@@ -103,7 +136,7 @@ $(document).on('click', '.artisan-button', function(){
         $("#errorSuccessMessageContainer").addClass('alert-success').html(response.data.message);
     })
     .catch(function(error){
-
+        $("#errorSuccessMessageContainer").addClass('alert-danger').html(error.data.message);
     });
 });
 

@@ -36,6 +36,9 @@ Route::post('/bets/store', ['middleware' => 'auth', 'uses' => 'BetsController@sa
 Route::get('/run-artisan', ['middleware' => 'auth', 'uses' => 'HomeController@getRunArtisan']);
 Route::post('/run-artisan', ['middleware' => 'auth', 'uses' => 'HomeController@runArtisan']);
 
+Route::get('/no-bets', ['middleware' => 'auth', 'uses' => 'HomeController@showNoBetsPage']);
+Route::post('/check-bets', ['middleware' => 'auth', 'uses' => 'HomeController@checkIfBetsExist']);
+
 Route::get('/messages', function () {
     return App\Message::with('user')->get();
 })->middleware('auth');

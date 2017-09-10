@@ -2,6 +2,9 @@ table.table tr th, table.table tr td {
     text-align: center;
     width: 20%;
 }
+table.stats-table-each tr td, table.stats-table-each tr th {
+    width: unset;
+}
 table.stats-table tr td, table.stats-table tr th {
     text-align: center;
 }

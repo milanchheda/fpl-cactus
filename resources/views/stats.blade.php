@@ -31,7 +31,7 @@
 	}, $newQuery);
 ?>
 <div class="table-responsive">
-	<table class="table stats-table">
+	<table class="table stats-table-each">
 		<thead>
 			<tr>
 			<th></th>
@@ -52,20 +52,21 @@
 						$winningTeam = ($newQuery[$i]->winningTeamId == 0) ? 'DRAW' : $newQuery[$i]->winningTeam;
 						if(count($fixtureArray) > 0)
 							echo "</tr><tr>";
-						echo "<td>" . $newQuery[$i]->fixture . "</td>";
-						echo "<td>" . $winningTeam . "</td>";
+						echo "<td class='col-md-1'>" . $newQuery[$i]->fixture . "</td>";
+						echo "<td class='col-md-1'>" . $winningTeam . "</td>";
 						array_push($fixtureArray, $newQuery[$i]->fixture);
 					}
-
-					if($newQuery[$i]->userBetTeamId == 0){
-						echo "<td>DRAW</td>";
+					if($newQuery[$i]->userBetTeamId == -1){
+						echo "<td class='col-md-1'>FORGOT</td>";
+					} else if($newQuery[$i]->userBetTeamId == 0){
+						echo "<td class='col-md-1'>DRAW</td>";
 					} else if($newQuery[$i]->userBetTeamId == $newQuery[$i]->winningTeamId){
-						echo "<td>" . $winningTeam . "</td>";
+						echo "<td class='col-md-1'>" . $winningTeam . "</td>";
 					} else {
 						if($newQuery[$i]->userBetTeamId == $teamOneArray[0])
-							echo "<td>" . $teamOneArray[1] . "</td>";
+							echo "<td class='col-md-1'>" . $teamOneArray[1] . "</td>";
 						else
-							echo "<td>" . $teamTwoArray[1] . "</td>";
+							echo "<td class='col-md-1'>" . $teamTwoArray[1] . "</td>";
 					}
 					?>
 			@endfor
