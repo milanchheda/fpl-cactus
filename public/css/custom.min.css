@@ -7721,6 +7721,9 @@ button.close {
   }
 }
 
+body {
+    background-color: #daeafb;
+}
 table.table tr th, table.table tr td {
     text-align: center;
     width: 20%;

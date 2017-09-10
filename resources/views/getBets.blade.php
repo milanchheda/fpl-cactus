@@ -7,7 +7,7 @@
 			<h2 class="h2">Gameweek: {{ $allFixtures->gameweek_id }}</h2>
 	    </div>
 		<div class="table-responsive">
-			<table class="table">
+			<table class="table table-striped">
 			@foreach($allFixtures as $fixture)
 				<tr data-fixture-id="{{ $fixture->id }}">
 					<td id="{{ $fixture->home_team_id }}" class="col-md-5 text-right set-bet">

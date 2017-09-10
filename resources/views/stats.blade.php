@@ -1,7 +1,7 @@
 <?php $count = 0; ?>
 @if(count($userArray) > 0)
 <div class="table-responsive">
-	<table class="table stats-table">
+	<table class="table stats-table table-striped">
 		<thead>
 			<tr>
 				<th>Name</th>
@@ -31,7 +31,7 @@
 	}, $newQuery);
 ?>
 <div class="table-responsive">
-	<table class="table stats-table-each">
+	<table class="table stats-table-each table-striped">
 		<thead>
 			<tr>
 			<th></th>
