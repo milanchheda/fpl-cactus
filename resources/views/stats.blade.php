@@ -1,11 +1,11 @@
-<?php $count = 0; ?>
+<?php $count = 0; $total = 0; ?>
 @if(count($userArray) > 0)
 <div class="table-responsive">
 	<table class="table stats-table table-striped">
 		<thead>
 			<tr>
 				<th>Name</th>
-				<th>Amount</th>
+				<th>Points</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -13,12 +13,16 @@
 				<?php $count++; ?>
 				<tr>
 					<td>{{ $key }}</td>
-					<td>{{ $value['amount'] }}</td>
+					<td>{{ round($value['amount']) }}</td>
 				</tr>
+				<?php $total = $total + round($value['amount']); ?>
 			@endforeach
 		</tbody>
 	</table>
 </div>
+<!-- <div class="row">
+	<span>Total: {{ $total }}</span>
+</div> -->
 @else
 	<div class='alert alert-info margin-top-10'>
 		No bets found OR Matches in this gameweek are yet to finish. Come again later.

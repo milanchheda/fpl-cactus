@@ -139,5 +139,5 @@
             </div> <!-- end card-container -->
         </div>
 	@endforeach
-    <div class="pagination"> {{ $allPlayers->links() }} </div>
+    <div class="pagination margin-bottom-10"> {{ $allPlayers->links() }} </div>
 @endsection

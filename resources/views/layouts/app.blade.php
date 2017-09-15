@@ -44,9 +44,9 @@
                                     Home
                                 </a>
                             </li>
-                            <li {{{ (Request::is('give-bets') ? 'class=active' : '') }}}>
-                                <a href="{{ url('give-bets') }}">
-                                    Give Bets
+                            <li {{{ (Request::is('place-selections') ? 'class=active' : '') }}}>
+                                <a href="{{ url('place-selections') }}">
+                                    Place Selections
                                 </a>
                             </li>
                             <li {{{ (Request::is('stats') ? 'class=active' : '') }}}>

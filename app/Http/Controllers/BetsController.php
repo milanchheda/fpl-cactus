@@ -158,8 +158,6 @@ class BetsController extends Controller
         $userArray = [];
         foreach ($getFixtures as $key => $value) {
             $fixtureCount[$value['id']] = 0;
-            // $fixtureCount[$value['id']]['lost'] = 0;
-            // $someCount = 0;
             foreach ($betsArray as $bk => $bv) {
                 if(!isset($userArray[$bk]['amount']))
                     $userArray[$bk]['amount'] = 0;
@@ -169,37 +167,27 @@ class BetsController extends Controller
                     }
                 }
             }
-            // for ($i = 1; $i <= count($betsArray)+1; $i++) {
-            //     if(!isset($userArray[$i]['amount']))
-            //         $userArray[$i]['amount'] = 0;
-            //     if(isset($betsArray[$i]) && isset($betsArray[$i][$value['id']])) {
-            //         if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
-            //             $fixtureCount[$value['id']]++;
-            //         }
-            //     }
-            // }
+        }
 
+        $someNewArray = [];
+        foreach ($getFixtures as $key => $value) {
             foreach ($fixtureCount as $fk => $fv) {
-                $fixtureCount[$fk] = 0;
+                $someNewArray[$fk] = 0;
                 if($fv > 0)
-                    $fixtureCount[$fk] = number_format(22/$fv, 2);
+                    $someNewArray[$fk] = number_format(22/$fv, 2);
             }
 
             foreach ($betsArray as $nbk => $nbv) {
-                if(isset($betsArray[$nbk])) {
+                if(isset($betsArray[$nbk]) && $someNewArray[$value['id']] > 0) {
                     if($value['winning_team_id'] == $betsArray[$nbk][$value['id']]) {
-                        $userArray[$nbk]['amount'] += $fixtureCount[$value['id']];
+                        $userArray[$nbk]['amount'] += $someNewArray[$value['id']];
                     }
+                } else {
+                    $userArray[$nbk]['amount'] += 2;
                 }
             }
-            // for ($i = 1; $i <= count($betsArray)+1; $i++) {
-            //     if(isset($betsArray[$i])) {
-            //         if($value['winning_team_id'] == $betsArray[$i][$value['id']]) {
-            //             $userArray[$i]['amount'] += $fixtureCount[$value['id']];
-            //         }
-            //     }
-            // }
         }
+
 
         foreach ($userArray as $key => $value) {
             $getUserObj = User::where('id', $key)->get()->toArray();

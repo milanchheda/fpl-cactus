@@ -25,7 +25,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'FplPlayersController@index');
-Route::get('/give-bets', ['middleware' => 'auth', 'uses' => 'BetsController@getBets']);
+Route::get('/place-selections', ['middleware' => 'auth', 'uses' => 'BetsController@getBets']);
 Route::get('/stats', ['middleware' => 'auth', 'uses' => 'HomeController@index']);
 Route::post('/fixtures', ['middleware' => 'auth', 'uses' => 'FixturesController@show']);
 Route::post('/get-user-bets', ['middleware' => 'auth', 'uses' => 'BetsController@getUserBets']);

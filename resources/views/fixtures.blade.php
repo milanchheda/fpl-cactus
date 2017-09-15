@@ -5,7 +5,7 @@
 				<th>Team 1</th>
 				<th colspan="2">Score</th>
 				<th>Team 2</th>
-				<th>Your Bet</th>
+				<th>You Selected</th>
 			</tr>
 		</thead>
 		<tbody>

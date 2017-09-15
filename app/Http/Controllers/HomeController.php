@@ -60,6 +60,10 @@ class HomeController extends Controller
                     Artisan::call('get:gameweeks');
                     $return = Artisan::output();
                     break;
+                case 'getPlayers':
+                    Artisan::call('get:players');
+                    $return = Artisan::output();
+                    break;
 
                 default:
                     $return = 0;
