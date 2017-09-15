@@ -174,7 +174,7 @@ class BetsController extends Controller
             foreach ($fixtureCount as $fk => $fv) {
                 $someNewArray[$fk] = 0;
                 if($fv > 0)
-                    $someNewArray[$fk] = number_format(22/$fv, 2);
+                    $someNewArray[$fk] = number_format(24/$fv, 2);
             }
 
             foreach ($betsArray as $nbk => $nbv) {
