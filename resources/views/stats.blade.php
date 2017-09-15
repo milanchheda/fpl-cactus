@@ -4,14 +4,25 @@
 	<table class="table stats-table table-striped">
 		<thead>
 			<tr>
+				<th></th>
 				<th>Name</th>
 				<th>Points</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($userArray as $key => $value)
-				<?php $count++; ?>
+				<?php
+				$shapeClass = 'shape4';
+				if($count == 0)
+					$shapeClass = 'shape1';
+				elseif($count == 1)
+					$shapeClass = 'shape2';
+				elseif($count == 2)
+					$shapeClass = 'shape3';
+				$count++;
+				?>
 				<tr>
+					<td><span class=<?php echo $shapeClass; ?>></span></td>
 					<td>{{ $key }}</td>
 					<td>{{ round($value['amount']) }}</td>
 				</tr>
