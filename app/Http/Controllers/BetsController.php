@@ -178,7 +178,7 @@ class BetsController extends Controller
             }
 
             foreach ($betsArray as $nbk => $nbv) {
-                if(isset($betsArray[$nbk]) && $someNewArray[$value['id']] > 0) {
+                if(isset($betsArray[$nbk][$value['id']]) && isset($betsArray[$nbk]) && $someNewArray[$value['id']] > 0) {
                     if($value['winning_team_id'] == $betsArray[$nbk][$value['id']]) {
                         $userArray[$nbk]['amount'] += $someNewArray[$value['id']];
                     }
